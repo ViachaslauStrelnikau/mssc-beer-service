@@ -16,12 +16,12 @@ public class BeerController {
     @GetMapping("/{beerId}")
     public ResponseEntity<BeerDto> getBeerById(@PathVariable UUID beerId){
 
-
-        return new ResponseEntity<>(BeerDto.builder().build(),HttpStatus.OK);
+        return new ResponseEntity<>(BeerDto.builder().id(UUID.randomUUID()).build(),HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<BeerDto> saveBeer(@RequestBody BeerDto beerDto){
+        beerDto.setId(UUID.randomUUID());
 
         return new ResponseEntity<>(beerDto, HttpStatus.CREATED);
     }
@@ -29,7 +29,7 @@ public class BeerController {
     @PutMapping("/{beerId}")
     public ResponseEntity<BeerDto> updateBeer(@PathVariable UUID beerId){
 
-        return new ResponseEntity<>(BeerDto.builder().build(),HttpStatus.OK);
+        return new ResponseEntity<>(BeerDto.builder().id(beerId).build(),HttpStatus.OK);
     }
 
 
