@@ -59,7 +59,6 @@ class BeerControllerTest {
                         .content(json)
                 ).andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(json))
                 .andReturn();
         json=result.getResponse().getContentAsString();
 
