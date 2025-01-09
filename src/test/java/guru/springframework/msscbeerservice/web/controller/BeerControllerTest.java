@@ -124,6 +124,12 @@ class BeerControllerTest {
 
     @Test
     void updateBeer() {
+        BeerDto beerDto = BeerDto.builder()
+                .beerName("test")
+                .upc(1L)
+                .beerStyle(BeerStyleEnum.PILSNER)
+                .price(new BigDecimal(10))
+                .build();
     }
 
     @Test
