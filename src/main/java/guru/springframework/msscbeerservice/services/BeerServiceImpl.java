@@ -9,10 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -61,9 +59,10 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public Page<BeerDto> getBeerPage(Integer pageNum, Integer pageSize) {
+    public BeerPagedList getBeerPage(Integer pageNum, Integer pageSize) {
         Page<Beer> beers =beerRepository.findAll(PageRequest.of(pageNum,pageSize));
+        BeerPagedList beerDtos = new BeerPagedList(beers.map(beerMapper::beerToBeerDto).stream().toList());
 
-        return beers.map(beerMapper::beerToBeerDto);
+        return beerDtos;
     }
 }
