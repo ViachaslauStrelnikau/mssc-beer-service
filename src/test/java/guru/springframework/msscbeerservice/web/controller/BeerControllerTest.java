@@ -243,7 +243,7 @@ class BeerControllerTest {
         return BeerDto.builder()
                 .id(UUID.randomUUID())
                 .beerName("test")
-                .upc(1L)
+                .upc("1")
                 .beerStyle(BeerStyleEnum.PILSNER)
                 .price(new BigDecimal(10))
                 .build();

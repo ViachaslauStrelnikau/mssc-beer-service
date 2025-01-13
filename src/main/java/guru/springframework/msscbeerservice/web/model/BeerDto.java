@@ -16,7 +16,6 @@ import java.util.UUID;
 @Data
 @Builder
 public class BeerDto {
-    @Null
     private UUID id;
 
     @Null
@@ -37,11 +36,9 @@ public class BeerDto {
     @NotNull
     private BeerStyleEnum beerStyle;
 
-    @Positive
     @NotNull
-    private Long upc;
+    private String upc;
 
-    @Positive
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
