@@ -57,7 +57,7 @@ class BeerControllerTest {
     @Test
     void getBeerById() throws Exception {
         BeerDto beerDto = createValidBeerDto();
-        when(beerService.getBeer(any())).thenReturn(beerDto);
+        when(beerService.getBeerById(any())).thenReturn(beerDto);
 
         mockMvc.perform(
                         MockMvcRequestBuilders
@@ -139,7 +139,7 @@ class BeerControllerTest {
     @Test
     void updateBeer() throws Exception {
         BeerDto beerDto = createValidBeerDto();
-        when(beerService.updateBeer(any(BeerDto.class))).thenReturn(beerDto);
+        when(beerService.updateBeer(any(UUID.class),any(BeerDto.class))).thenReturn(beerDto);
         String json = objectMapper.writeValueAsString(beerDto);
         ConstrainedFields fields = new ConstrainedFields(BeerDto.class);
 

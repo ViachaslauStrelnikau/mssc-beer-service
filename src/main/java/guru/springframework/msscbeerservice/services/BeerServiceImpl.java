@@ -1,6 +1,7 @@
 package guru.springframework.msscbeerservice.services;
 
 import guru.springframework.msscbeerservice.domain.Beer;
+import guru.springframework.msscbeerservice.exception.NotFoundException;
 import guru.springframework.msscbeerservice.repositories.BeerRepository;
 import guru.springframework.msscbeerservice.web.mappers.BeerMapper;
 import guru.springframework.msscbeerservice.web.model.BeerDto;
@@ -24,30 +25,26 @@ public class BeerServiceImpl implements BeerService {
     private BeerMapper beerMapper;
 
     @Override
-    public BeerDto saveBeer(BeerDto beerDto){
-        if(beerDto==null)
-            return null;
-
-        Beer beer =beerMapper.beerDtoToBeer(beerDto);
-
-        return  beerMapper.beerToBeerDto(beerRepository.save(beer));
-    }
-
-    @Override
-    public BeerDto updateBeer(BeerDto beerDto) {
-        if(beerDto==null)
-            return null;
-
-        Beer beer =beerMapper.beerDtoToBeer(beerDto);
+    public BeerDto saveBeer(BeerDto beerDto) {
+        Beer beer = beerMapper.beerDtoToBeer(beerDto);
 
         return beerMapper.beerToBeerDto(beerRepository.save(beer));
     }
 
     @Override
-    public BeerDto getBeer(UUID beerId) {
-        Beer beer=beerRepository.findById(beerId).orElse(null);
-        if (beer==null)
-            return null;
+    public BeerDto updateBeer(UUID beerId, BeerDto beerDto) {
+        Beer beer = beerRepository.findById(beerId).orElseThrow(NotFoundException::new);
+        beer.setBeerName(beerDto.getBeerName());
+        beer.setBeerStyle(beerDto.getBeerStyle().name());
+        beer.setPrice(beerDto.getPrice());
+        beer.setUpc(beer.getUpc());
+
+        return beerMapper.beerToBeerDto(beerRepository.save(beer));
+    }
+
+    @Override
+    public BeerDto getBeerById(UUID beerId) {
+        Beer beer = beerRepository.findById(beerId).orElseThrow(NotFoundException::new);
 
         return beerMapper.beerToBeerDto(beer);
     }
@@ -60,9 +57,8 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public BeerPagedList getBeerPage(Integer pageNum, Integer pageSize) {
-        Page<Beer> beers =beerRepository.findAll(PageRequest.of(pageNum,pageSize));
-        BeerPagedList beerDtos = new BeerPagedList(beers.map(beerMapper::beerToBeerDto).stream().toList());
+        Page<Beer> beers = beerRepository.findAll(PageRequest.of(pageNum, pageSize));
 
-        return beerDtos;
+        return new BeerPagedList(beers.map(beerMapper::beerToBeerDto).stream().toList());
     }
 }
