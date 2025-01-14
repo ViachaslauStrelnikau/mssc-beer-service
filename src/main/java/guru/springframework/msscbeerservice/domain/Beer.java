@@ -17,6 +17,7 @@ import java.util.UUID;
 public class Beer {
     @Id
     @UuidGenerator
+    @Column(length = 36, updatable = false, nullable = false )
     private UUID id;
 
     @Version

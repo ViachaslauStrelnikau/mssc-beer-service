@@ -12,6 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -60,5 +63,16 @@ public class BeerServiceImpl implements BeerService {
         Page<Beer> beers = beerRepository.findAll(PageRequest.of(pageNum, pageSize));
 
         return new BeerPagedList(beers.map(beerMapper::beerToBeerDto).stream().toList());
+    }
+
+    @Override
+    public BeerPagedList getAllBeers() {
+        Iterable<Beer> beers = beerRepository.findAll();
+        List<BeerDto> beerDtos= new ArrayList<>();
+        for(Beer beer:beers){
+            beerDtos.add(beerMapper.beerToBeerDto(beer));
+        }
+
+        return new BeerPagedList(beerDtos);
     }
 }

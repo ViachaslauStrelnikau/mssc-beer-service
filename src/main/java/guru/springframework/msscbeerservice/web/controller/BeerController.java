@@ -47,8 +47,12 @@ public class BeerController {
     @GetMapping
     public ResponseEntity<Page<BeerDto>> getBeerList(@RequestParam Integer pageNumber,
                                                      @RequestParam Integer pageSize){
-
         return new ResponseEntity<>(beerService.getBeerPage(pageNumber,pageSize),HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Page<BeerDto>> getBeerListAll(){
+        return new ResponseEntity<>(beerService.getAllBeers(),HttpStatus.OK);
     }
 
 }
