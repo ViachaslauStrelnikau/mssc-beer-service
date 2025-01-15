@@ -17,5 +17,14 @@ public interface BeerMapper {
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "quantityOnHand", qualifiedByName = {"BeerInventoryRestTemplateImpl", "getOnHandInventory"}, source = "id")
     BeerDto beerToBeerDto(Beer beer);
+
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "quantityOnHand", qualifiedByName = {"BeerInventoryRestTemplateImpl", "getOnHandInventory"}, source = "beer.id", conditionExpression = "java(showInventoryOnHand)")
+    BeerDto beerToBeerDto(Beer beer,boolean showInventoryOnHand);
     Beer beerDtoToBeer(BeerDto dto);
+
+
+    default boolean showInventory(boolean showInventoryOnHand) {
+        return showInventoryOnHand;
+    }
 }

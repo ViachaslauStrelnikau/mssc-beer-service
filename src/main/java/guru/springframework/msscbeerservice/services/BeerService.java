@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface BeerService {
     BeerDto saveBeer(BeerDto beer);
     BeerDto updateBeer(UUID beerId,BeerDto beer);
-    BeerDto getBeerById(UUID beerId);
+    BeerDto getBeerById(UUID beerId, boolean showInventoryOnHand);
     void deleteBeer(UUID beerId);
-    BeerPagedList listBeers(String beerName, String beerStyle, Integer pageNum, Integer pageSize);
+    BeerPagedList listBeers(String beerName, String beerStyle, Integer pageNum, Integer pageSize, boolean showInventoryOnHand);
 }

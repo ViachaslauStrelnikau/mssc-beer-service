@@ -57,7 +57,7 @@ class BeerControllerTest {
     @Test
     void getBeerById() throws Exception {
         BeerDto beerDto = createValidBeerDto();
-        when(beerService.getBeerById(any())).thenReturn(beerDto);
+        when(beerService.getBeerById(any(), any(Boolean.class))).thenReturn(beerDto);
 
         mockMvc.perform(
                         MockMvcRequestBuilders
@@ -197,7 +197,7 @@ class BeerControllerTest {
     void getBeerList() throws Exception {
         BeerPagedList page = new BeerPagedList(Collections.singletonList(createValidBeerDto()));
 
-        when(beerService.listBeers(any(String.class), any(String.class), any(Integer.class), any(Integer.class)))
+        when(beerService.listBeers(any(String.class), any(String.class), any(Integer.class), any(Integer.class), any(Boolean.class)))
                 .thenReturn(page);
         String json = objectMapper.writeValueAsString(page);
 
