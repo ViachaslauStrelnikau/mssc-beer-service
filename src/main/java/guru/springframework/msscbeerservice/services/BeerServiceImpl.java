@@ -9,6 +9,7 @@ import guru.springframework.msscbeerservice.web.model.BeerPagedList;
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -47,6 +48,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
+    @Cacheable(cacheNames = "beerCache", key = "#beerId", condition = "#showInventoryOnHand==false")
     public BeerDto getBeerById(UUID beerId, boolean showInventoryOnHand) {
         Beer beer = beerRepository.findById(beerId).orElseThrow(NotFoundException::new);
 
@@ -60,7 +62,9 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
+    @Cacheable(cacheNames = "beerListCache",condition = "#showInventoryOnHand==false")
     public BeerPagedList listBeers(String beerName, String beerStyle, Integer pageNum, Integer pageSize, boolean showInventoryOnHand) {
+        log.info("listBeers {},{},{},{},{}",beerName,beerStyle,pageNum,pageSize,showInventoryOnHand);
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Beer> beers;
 

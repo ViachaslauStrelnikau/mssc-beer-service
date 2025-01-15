@@ -8,13 +8,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerDto {
+public class CustomerDto implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1605711145105979286L;
+
     @Null
     private UUID id;
     @NotBlank
