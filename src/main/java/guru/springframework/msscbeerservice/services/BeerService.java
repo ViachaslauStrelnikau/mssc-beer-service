@@ -9,6 +9,7 @@ public interface BeerService {
     BeerDto saveBeer(BeerDto beer);
     BeerDto updateBeer(UUID beerId,BeerDto beer);
     BeerDto getBeerById(UUID beerId, boolean showInventoryOnHand);
+    BeerDto getBeerByUpc(String upc, boolean showInventoryOnHand);
     void deleteBeer(UUID beerId);
     BeerPagedList listBeers(String beerName, String beerStyle, Integer pageNum, Integer pageSize, boolean showInventoryOnHand);
 }

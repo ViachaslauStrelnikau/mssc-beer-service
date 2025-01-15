@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/beer")
+@RequestMapping("/api/v1")
 public class BeerController {
     private final Integer DEFAULT_PAGE_NUMBER = 0;
     private final Integer DEFAULT_PAGE_SIZE = 25;
@@ -21,12 +21,20 @@ public class BeerController {
     private BeerService beerService;
 
 
-    @GetMapping("/{beerId}")
+    @GetMapping("/beer/{beerId}")
     public ResponseEntity<BeerDto> getBeerById(
             @PathVariable UUID beerId,
             @RequestParam(required = false, defaultValue = "false") boolean showInventoryOnHand) {
 
         return new ResponseEntity<>(beerService.getBeerById(beerId, showInventoryOnHand), HttpStatus.OK);
+    }
+
+    @GetMapping("/beerUpc/{beerUpc}")
+    public ResponseEntity<BeerDto> getBeerByUpc(
+            @PathVariable String beerUpc,
+            @RequestParam(required = false, defaultValue = "false") boolean showInventoryOnHand) {
+
+        return new ResponseEntity<>(beerService.getBeerByUpc(beerUpc, showInventoryOnHand), HttpStatus.OK);
     }
 
     @PostMapping
@@ -35,20 +43,20 @@ public class BeerController {
         return new ResponseEntity<>(beerService.saveBeer(beerDto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{beerId}")
+    @PutMapping("/beer/{beerId}")
     public ResponseEntity<BeerDto> updateBeer(@PathVariable UUID beerId, @RequestBody @Validated BeerDto beerDto) {
 
         return new ResponseEntity<>(beerService.updateBeer(beerId, beerDto), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{beerId}")
+    @DeleteMapping("/beer/{beerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBeer(@PathVariable UUID beerId) {
 
         beerService.deleteBeer(beerId);
     }
 
-    @GetMapping
+    @GetMapping("/beer")
     public ResponseEntity<Page<BeerDto>> getBeerList(@RequestParam(required = false) Integer pageNumber,
                                                      @RequestParam(required = false) Integer pageSize,
                                                      @RequestParam(required = false) String beerName,

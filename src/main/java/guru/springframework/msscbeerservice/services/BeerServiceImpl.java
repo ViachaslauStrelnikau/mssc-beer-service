@@ -56,6 +56,15 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
+    @Cacheable(cacheNames = "beerUpcCache", key = "#upc", condition = "#showInventoryOnHand==false")
+    public BeerDto getBeerByUpc(String upc, boolean showInventoryOnHand){
+        Beer beer = beerRepository.findByUpc(upc).orElseThrow(NotFoundException::new);
+
+        return beerMapper.beerToBeerDto(beer,showInventoryOnHand);
+    }
+
+
+    @Override
     public void deleteBeer(UUID beerId) {
         if (beerRepository.existsById(beerId))
             beerRepository.deleteById(beerId);
