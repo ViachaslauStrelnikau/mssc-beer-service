@@ -197,7 +197,7 @@ class BeerControllerTest {
     void getBeerList() throws Exception {
         BeerPagedList page = new BeerPagedList(Collections.singletonList(createValidBeerDto()));
 
-        when(beerService.getBeerPage(any(Integer.class), any(Integer.class)))
+        when(beerService.listBeers(any(String.class), any(String.class), any(Integer.class), any(Integer.class)))
                 .thenReturn(page);
         String json = objectMapper.writeValueAsString(page);
 

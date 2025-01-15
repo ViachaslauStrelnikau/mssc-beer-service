@@ -6,14 +6,15 @@ import guru.springframework.msscbeerservice.repositories.BeerRepository;
 import guru.springframework.msscbeerservice.web.mappers.BeerMapper;
 import guru.springframework.msscbeerservice.web.model.BeerDto;
 import guru.springframework.msscbeerservice.web.model.BeerPagedList;
+import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,17 +60,29 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public BeerPagedList getBeerPage(Integer pageNum, Integer pageSize) {
-        Page<Beer> beers = beerRepository.findAll(PageRequest.of(pageNum, pageSize));
+    public BeerPagedList listBeers(String beerName, String beerStyle, Integer pageNum, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        Page<Beer> beers;
 
-        return new BeerPagedList(beers.map(beerMapper::beerToBeerDto).stream().toList());
+        if (StringUtils.isNotEmpty(beerName) && StringUtils.isNotEmpty(beerStyle)) {
+            beers = beerRepository.findAllByBeerNameAndBeerStyle(beerName, beerStyle, pageable);
+        } else if (StringUtils.isNotEmpty(beerName) && StringUtils.isEmpty(beerStyle)) {
+            beers = beerRepository.findAllByBeerName(beerName, pageable);
+        } else if (StringUtils.isEmpty(beerName) && StringUtils.isNotEmpty(beerStyle)) {
+            beers = beerRepository.findAllByBeerStyle(beerStyle, pageable);
+        } else
+            beers = beerRepository.findAll(pageable);
+
+        return new BeerPagedList(beers.map(beerMapper::beerToBeerDto).stream().toList(),
+                PageRequest.of(beers.getPageable().getPageNumber(), beers.getPageable().getPageSize()),
+                beers.getTotalElements()
+        );
     }
 
-    @Override
     public BeerPagedList getAllBeers() {
         Iterable<Beer> beers = beerRepository.findAll();
-        List<BeerDto> beerDtos= new ArrayList<>();
-        for(Beer beer:beers){
+        List<BeerDto> beerDtos = new ArrayList<>();
+        for (Beer beer : beers) {
             beerDtos.add(beerMapper.beerToBeerDto(beer));
         }
 

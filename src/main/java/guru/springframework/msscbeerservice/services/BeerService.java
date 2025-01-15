@@ -10,6 +10,5 @@ public interface BeerService {
     BeerDto updateBeer(UUID beerId,BeerDto beer);
     BeerDto getBeerById(UUID beerId);
     void deleteBeer(UUID beerId);
-    BeerPagedList getBeerPage(Integer pageNum, Integer pageSize);
-    BeerPagedList getAllBeers();
+    BeerPagedList listBeers(String beerName, String beerStyle, Integer pageNum, Integer pageSize);
 }

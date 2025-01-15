@@ -14,6 +14,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/beer")
 public class BeerController {
+    private final Integer DEFAULT_PAGE_NUMBER=0;
+    private final Integer DEFAULT_PAGE_SIZE=25;
 
     @Autowired
     private BeerService beerService;
@@ -45,14 +47,15 @@ public class BeerController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<BeerDto>> getBeerList(@RequestParam Integer pageNumber,
-                                                     @RequestParam Integer pageSize){
-        return new ResponseEntity<>(beerService.getBeerPage(pageNumber,pageSize),HttpStatus.OK);
-    }
+    public ResponseEntity<Page<BeerDto>> getBeerList(@RequestParam(required = false) Integer pageNumber,
+                                                     @RequestParam(required = false) Integer pageSize,
+                                                     @RequestParam(required = false) String beerName,
+                                                     @RequestParam(required = false) String beerStyle
+    ){
+        pageNumber=pageNumber==null?DEFAULT_PAGE_NUMBER:pageNumber;
+        pageSize=pageSize==null?DEFAULT_PAGE_SIZE:pageSize;
 
-    @GetMapping("/all")
-    public ResponseEntity<Page<BeerDto>> getBeerListAll(){
-        return new ResponseEntity<>(beerService.getAllBeers(),HttpStatus.OK);
-    }
 
+        return new ResponseEntity<>(beerService.listBeers(beerName, beerStyle,pageNumber,pageSize),HttpStatus.OK);
+    }
 }
