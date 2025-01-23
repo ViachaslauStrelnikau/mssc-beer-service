@@ -3,6 +3,7 @@ package guru.springframework.msscbeerservice.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.*;
+import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -18,6 +19,7 @@ public class Beer {
     @Id
     @UuidGenerator
     @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false )
+    @JdbcType(VarcharJdbcType.class)
     private UUID id;
 
     @Version
