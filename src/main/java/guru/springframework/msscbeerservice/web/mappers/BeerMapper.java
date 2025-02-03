@@ -2,7 +2,7 @@ package guru.springframework.msscbeerservice.web.mappers;
 
 import guru.springframework.msscbeerservice.domain.Beer;
 import guru.springframework.msscbeerservice.services.inventory.BeerInventoryRestTemplateImpl;
-import guru.springframework.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.BeerDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

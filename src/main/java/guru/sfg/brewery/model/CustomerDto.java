@@ -1,4 +1,4 @@
-package guru.springframework.msscbeerservice.web.model;
+package guru.sfg.brewery.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Null;

@@ -1,7 +1,7 @@
 package guru.springframework.msscbeerservice.services;
 
 
-import guru.springframework.msscbeerservice.web.model.CustomerDto;
+import guru.sfg.brewery.model.CustomerDto;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

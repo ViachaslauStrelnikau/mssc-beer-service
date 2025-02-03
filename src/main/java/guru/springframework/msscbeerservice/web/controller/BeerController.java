@@ -1,7 +1,7 @@
 package guru.springframework.msscbeerservice.web.controller;
 
 import guru.springframework.msscbeerservice.services.BeerService;
-import guru.springframework.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.BeerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

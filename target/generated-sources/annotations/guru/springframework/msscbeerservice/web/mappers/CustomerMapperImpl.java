@@ -1,14 +1,14 @@
 package guru.springframework.msscbeerservice.web.mappers;
 
+import guru.sfg.brewery.model.CustomerDto;
 import guru.springframework.msscbeerservice.domain.Customer;
-import guru.springframework.msscbeerservice.web.model.CustomerDto;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-16T11:47:20+0300",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
+    date = "2025-02-03T12:25:18+0300",
+    comments = "version: 1.6.3, compiler: javac, environment: Java 22 (Oracle Corporation)"
 )
 @Component
 public class CustomerMapperImpl implements CustomerMapper {

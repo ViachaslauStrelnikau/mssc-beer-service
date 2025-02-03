@@ -2,9 +2,9 @@ package guru.springframework.msscbeerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springframework.msscbeerservice.services.BeerService;
-import guru.springframework.msscbeerservice.web.model.BeerDto;
-import guru.springframework.msscbeerservice.web.model.BeerPagedList;
-import guru.springframework.msscbeerservice.web.model.BeerStyleEnum;
+import guru.sfg.brewery.model.BeerDto;
+import guru.sfg.brewery.model.BeerPagedList;
+import guru.sfg.brewery.model.BeerStyleEnum;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

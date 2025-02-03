@@ -3,7 +3,7 @@ package guru.springframework.msscbeerservice.web.controller;
 
 import guru.springframework.msscbeerservice.services.CustomerService;
 import guru.springframework.msscbeerservice.services.CustomerServiceImpl;
-import guru.springframework.msscbeerservice.web.model.CustomerDto;
+import guru.sfg.brewery.model.CustomerDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
